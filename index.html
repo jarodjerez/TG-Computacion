@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Informativo - Técnico General en Computación | INATEC León</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        inatec: {
+                            blue: '#00529B',       /* Azul institucional oficial INATEC */
+                            sky: '#0284C7',        /* Cían institucional */
+                            darkblue: '#003B70'
+                        },
+                        bubblegum: {
+                            50: '#fdf2f8',        /* Fondo rosa goma de mascar muy suave */
+                            100: '#fce7f3',       /* Rosa pastel delicado */
+                            200: '#fbcfe8',       /* Borde rosa chicle */
+                            400: '#f472b6',       /* Rosa impulsivo fresco */
+                            500: '#ec4899',       /* Rosa goma de mascar principal */
+                            600: '#db2777',       /* Rosa baya vibrante */
+                            700: '#be185d'        /* Baya elegante */
+                        },
+                        natural: {
+                            mint: '#10b981',      /* Menta natural fresco */
+                            mintlight: '#ecfdf5', /* Fondo menta suave */
+                            teal: '#0d9488',      /* Verde agua / Teal natural */
+                            teallight: '#f0fdfa', /* Fondo verde agua suave */
+                            vanilla: '#fafaf9',   /* Fondo neutro editorial cálido */
+                            cream: '#fffaf6'      /* Crema pastel natural */
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Georgia', 'Merriweather', 'serif'],
+                        display: ['Outfit', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'portal': '0 10px 25px -5px rgba(219, 39, 119, 0.08), 0 8px 10px -6px rgba(0, 82, 155, 0.05)',
+                        'card': '0 4px 20px -2px rgba(0, 0, 0, 0.04)'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts & FontAwesome icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            background-color: #fafaf9;
+            color: #1e293b;
+        }
+        .portal-gradient-bg {
+            background-color: #f8fafc;
+        }
+        .bubblegum-badge {
+            background-color: #db2777;
+        }
+        .portal-card {
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .portal-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px -5px rgba(236, 72, 153, 0.12);
+        }
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-natural-vanilla text-slate-800 font-sans antialiased selection:bg-bubblegum-200 selection:text-bubblegum-700 min-h-screen">
+
+    <!-- Editorial Header with Official INATEC Blue Background -->
+    <header class="bg-inatec-blue text-white sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-3.5">
+                
+                <!-- Institutional Branding & Official Logo -->
+                <a href="#" class="flex items-center gap-3 sm:gap-4 group">
+                    <div class="relative flex items-center justify-center p-2 bg-white rounded-2xl border border-white/30 shadow-sm group-hover:scale-105 transition-transform">
+                        <img src="https://www.tecnacional.edu.ni/static/img/logo-inatec.png" 
+                             onerror="this.onerror=null; this.src='https://placehold.co/180x90/00529B/ffffff?text=INATEC+Le%C3%B3n';" 
+                             alt="Logo INATEC Oficial" 
+                             class="h-10 sm:h-12 w-auto object-contain p-0.5">
+                    </div>
+                    <div>
+                        <h1 class="text-sm sm:text-xl font-extrabold text-white leading-tight font-display">
+                            Centro Tecnológico Juan de Dios Muñoz Reyes, León
+                        </h1>
+                    </div>
+                </a>
+
+                <!-- Mobile Toggle -->
+                <div class="flex items-center gap-3">
+                    <button id="mobileMenuToggle" class="lg:hidden p-2.5 rounded-xl bg-white/10 text-white hover:bg-white/20 border border-white/20">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Portal Category Navigation Bar -->
+            <nav class="hidden lg:flex items-center space-x-1 border-t border-white/15 py-2.5 text-xs font-bold text-white/90 uppercase tracking-wider overflow-x-auto">
+                <a href="#portada" class="px-3 py-1.5 rounded-lg hover:bg-white/15 hover:text-white transition-colors">Noticias & Reportajes</a>
+                <a href="#guia-carrera" class="px-3 py-1.5 rounded-lg hover:bg-white/15 hover:text-white transition-colors">Guía Completa de Carrera</a>
+                <a href="#modulos-formativos" class="px-3 py-1.5 rounded-lg hover:bg-white/15 hover:text-white transition-colors">Plan de Formación</a>
+                <a href="#enfoque-familiar" class="px-3 py-1.5 rounded-lg hover:bg-white/15 hover:text-white transition-colors">Padres e Hij@s</a>
+                <a href="#salida-laboral" class="px-3 py-1.5 rounded-lg hover:bg-white/15 hover:text-white transition-colors">Campo Laboral</a>
+                <a href="#test-vocacional" class="px-3 py-1.5 rounded-lg hover:bg-white/15 hover:text-white transition-colors">Test Vocacional</a>
+                <a href="#instalaciones" class="px-3 py-1.5 rounded-lg hover:bg-white/15 hover:text-white transition-colors">Galería del Centro</a>
+            </nav>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobileDrawer" class="hidden lg:hidden border-t border-white/20 bg-inatec-darkblue px-4 py-4 space-y-2 text-xs font-semibold text-white">
+            <a href="#portada" class="block py-2 text-sky-200 font-bold border-b border-white/10">Noticias & Reportajes</a>
+            <a href="#guia-carrera" class="block py-2 text-white/90 hover:text-white">Guía Completa de Carrera</a>
+            <a href="#modulos-formativos" class="block py-2 text-white/90 hover:text-white">Plan de Formación</a>
+            <a href="#enfoque-familiar" class="block py-2 text-white/90 hover:text-white">Visión Familiar (Padres y Jóvenes)</a>
+            <a href="#salida-laboral" class="block py-2 text-white/90 hover:text-white">Salidas Laborales en León</a>
+            <a href="#test-vocacional" class="block py-2 text-white/90 hover:text-white">Test Vocacional Interactivo</a>
+        </div>
+    </header>
+
+    <!-- PORTAL HERO: MAGAZINE STYLE COVER & HIGHLIGHT STORIES -->
+    <section id="portada" class="bg-slate-50 py-8 lg:py-12 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                
+                <!-- FEATURED MAIN STORY CARD -->
+                <article class="lg:col-span-8 bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm flex flex-col justify-between relative overflow-hidden portal-card group">
+                    <div>
+                        <!-- Editorial Headline -->
+                        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 leading-tight font-serif mb-4 group-hover:text-inatec-blue transition-colors">
+                            Técnico General en Computación: La Carrera Técnica Gratuita que Transforma el Futuro Juvenil en León
+                        </h2>
+
+                        <!-- Lead Paragraph -->
+                        <p class="text-slate-600 text-sm sm:text-base leading-relaxed font-serif italic border-l-4 border-slate-300 pl-4 py-1 mb-6 bg-slate-50 rounded-r-lg">
+                            "Con un enfoque 70% práctico en laboratorios de redes y talleres de hardware, el Centro Tecnológico Juan de Dios Muñoz Reyes capacita a la nueva generación de profesionales en informática sin costo alguno."
+                        </p>
+
+                        <!-- Featured Cover Image -->
+                        <div class="relative rounded-2xl overflow-hidden mb-6 h-64 sm:h-80 border border-slate-200 group">
+                            <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80" 
+                                 onerror="this.onerror=null; this.src='https://placehold.co/1000x600/fce7f3/db2777?text=Laboratorio+de+Computacion+INATEC';" 
+                                 alt="Estudiantes en el laboratorio de computación del INATEC León" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-slate-900/40"></div>
+                            <div class="absolute bottom-4 left-4 right-4 text-white flex justify-between items-end">
+                                <div>
+                                    <span class="bg-natural-mint text-white text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full mb-1 inline-block">
+                                        <i class="fa-solid fa-camera mr-1"></i> Fotoreportaje
+                                    </span>
+                                    <p class="text-xs font-medium text-slate-200">Aulas equipadas para ensamblaje de hardware y mantenimiento preventivo.</p>
+                                </div>
+                                <span class="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-bold">INATEC León</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Article Author Footer -->
+                    <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-inatec-blue text-white flex items-center justify-center font-bold text-sm shadow-sm">
+                                IN
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-slate-900">Redacción Departamental INATEC León</h4>
+                                <p class="text-[11px] text-slate-400">Publicado para la Comunidad Educativa de León</p>
+                            </div>
+                        </div>
+
+                        <a href="#guia-carrera" class="inline-flex items-center px-4 py-2 rounded-xl bg-slate-900 hover:bg-inatec-blue text-white font-bold text-xs uppercase tracking-wider transition-all">
+                            Leer Guía Educativa <i class="fa-solid fa-arrow-right ml-2 text-slate-300"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- SIDE EDITORIAL CARDS -->
+                <div class="lg:col-span-4 flex flex-col gap-5">
+                    
+                    <!-- Quick Stats Portal Widget -->
+                    <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
+                        <div class="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
+                            <span class="text-xs font-black uppercase tracking-wider text-slate-800 flex items-center">
+                                <i class="fa-solid fa-chart-line text-natural-teal mr-2"></i> Datos Clave del Programa
+                            </span>
+                            <span class="text-[10px] bg-natural-mintlight text-natural-teal font-extrabold px-2 py-0.5 rounded-full border border-natural-mint/30">100% GRATUITO</span>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3 text-center">
+                            <div class="bg-slate-50 p-3 rounded-2xl border border-slate-100 shadow-sm">
+                                <p class="text-2xl font-black text-slate-900 font-display">1 Año</p>
+                                <p class="text-[10px] text-slate-500 uppercase font-bold mt-0.5">Duración Regular</p>
+                            </div>
+                            <div class="bg-slate-50 p-3 rounded-2xl border border-slate-100 shadow-sm">
+                                <p class="text-2xl font-black text-inatec-blue font-display">70%</p>
+                                <p class="text-[10px] text-slate-500 uppercase font-bold mt-0.5">Horas Prácticas</p>
+                            </div>
+                            <div class="bg-slate-50 p-3 rounded-2xl border border-slate-100 shadow-sm">
+                                <p class="text-2xl font-black text-natural-teal font-display">7</p>
+                                <p class="text-[10px] text-slate-500 uppercase font-bold mt-0.5">Módulos Técnicos</p>
+                            </div>
+                            <div class="bg-slate-50 p-3 rounded-2xl border border-slate-100 shadow-sm">
+                                <p class="text-2xl font-black text-amber-600 font-display">Oficial</p>
+                                <p class="text-[10px] text-slate-500 uppercase font-bold mt-0.5">Título INATEC</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Highlight Story Card 1 -->
+                    <article class="bg-white rounded-3xl border border-slate-200 p-5 shadow-sm portal-card flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-natural-teal bg-natural-teallight px-2.5 py-0.5 rounded-full">Redes & Infraestructura</span>
+                                <span class="text-[10px] text-slate-400"><i class="fa-regular fa-clock mr-1"></i>3 min</span>
+                            </div>
+                            <h3 class="text-sm font-bold text-slate-900 font-serif leading-snug mb-2 hover:text-inatec-blue transition-colors">
+                                Ponchado de cables, Racks de Servidores y Routers Wi-Fi: Lo que se vive en los talleres
+                            </h3>
+                            <p class="text-slate-500 text-xs line-clamp-2 mb-3">
+                                Los estudiantes aprenden instalando cableado UTP Cat6 bajo normas internacionales en entornos de red reales.
+                            </p>
+                        </div>
+                        <a href="#modulos-formativos" class="text-xs font-bold text-inatec-blue hover:text-slate-900 inline-flex items-center">
+                            Ver Módulos de Redes <i class="fa-solid fa-chevron-right text-[10px] ml-1"></i>
+                        </a>
+                    </article>
+
+                    <!-- Highlight Story Card 2 -->
+                    <article class="bg-white rounded-3xl border border-slate-200 p-5 shadow-sm portal-card flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-700 bg-slate-100 px-2.5 py-0.5 rounded-full">Testimonio Estudiantil</span>
+                                <span class="text-[10px] text-slate-400"><i class="fa-regular fa-clock mr-1"></i>2 min</span>
+                            </div>
+                            <h3 class="text-sm font-bold text-slate-900 font-serif leading-snug mb-2 hover:text-inatec-blue transition-colors">
+                                "En menos de 1 año armé mi propio taller de mantenimiento de computadoras en León"
+                            </h3>
+                            <p class="text-slate-500 text-xs line-clamp-2">
+                                Conoce cómo la formación del Centro Juan de Dios Muñoz Reyes abre puertas al emprendimiento local.
+                            </p>
+                        </div>
+                    </article>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTAL CONTENT FEED & SIDEBAR SECTION -->
+    <section class="py-12 bg-natural-vanilla">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Category Filter Bar (Magazine Tabs) -->
+            <div class="flex items-center justify-between mb-8 border-b border-slate-200 pb-4 overflow-x-auto gap-4">
+                <div class="flex items-center space-x-2" id="portalCategoryContainer">
+                    <button onclick="filterPortalArticles('all')" class="portal-cat-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-bubblegum-500 text-white shadow-sm transition-all" data-cat="all">
+                        Todos los Artículos
+                    </button>
+                    <button onclick="filterPortalArticles('noticias')" class="portal-cat-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-white text-slate-600 hover:bg-bubblegum-50 hover:text-bubblegum-600 border border-slate-200 transition-all" data-cat="noticias">
+                        Noticias & Reportajes
+                    </button>
+                    <button onclick="filterPortalArticles('pensum')" class="portal-cat-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-white text-slate-600 hover:bg-bubblegum-50 hover:text-bubblegum-600 border border-slate-200 transition-all" data-cat="pensum">
+                        Módulos Académicos
+                    </button>
+                    <button onclick="filterPortalArticles('orientacion')" class="portal-cat-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-white text-slate-600 hover:bg-bubblegum-50 hover:text-bubblegum-600 border border-slate-200 transition-all" data-cat="orientacion">
+                        Guía para Padres y Jóvenes
+                    </button>
+                    <button onclick="filterPortalArticles('empleo')" class="portal-cat-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-white text-slate-600 hover:bg-bubblegum-50 hover:text-bubblegum-600 border border-slate-200 transition-all" data-cat="empleo">
+                        Oportunidades de Empleo
+                    </button>
+                </div>
+
+                <div class="text-xs text-slate-400 font-medium hidden sm:block shrink-0">
+                    <i class="fa-solid fa-newspaper mr-1 text-bubblegum-500"></i> Mostrando publicaciones actualizadas
+                </div>
+            </div>
+
+            <!-- MAIN TWO-COLUMN PORTAL LAYOUT (8 COLS CONTENT + 4 COLS SIDEBAR) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <!-- LEFT COLUMN: ARTICLES & DEEP DIVE GUIDES (8 COLS) -->
+                <main class="lg:col-span-8 space-y-10">
+                    
+                    <!-- EDITORIAL ARTICLE 1: GUÍA COMPLETA DE LA CARRERA -->
+                    <article id="guia-carrera" class="portal-article-item bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm portal-card" data-category="noticias">
+                        <div class="flex items-center space-x-3 text-xs text-slate-400 mb-3">
+                            <span class="bg-slate-100 text-slate-800 font-extrabold px-3 py-1 rounded-full uppercase text-[10px]">Guía Educativa</span>
+                            <span>•</span>
+                            <span>Publicado por Departamento Académico</span>
+                            <span>•</span>
+                            <span><i class="fa-regular fa-eye mr-1"></i> 1,420 Visitas</span>
+                        </div>
+
+                        <h2 class="text-2xl font-bold font-serif text-slate-900 mb-4 hover:text-inatec-blue transition-colors">
+                            ¿Por qué elegir el Técnico General en Computación en el INATEC de León?
+                        </h2>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                            <img src="https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80" 
+                                 onerror="this.onerror=null; this.src='https://placehold.co/600x400/fce7f3/db2777?text=Mantenimiento+Hardware';" 
+                                 alt="Reparación de hardware informático" 
+                                 class="rounded-2xl object-cover w-full h-48 border border-slate-100">
+                            <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80" 
+                                 onerror="this.onerror=null; this.src='https://placehold.co/600x400/ecfdf5/0d9488?text=Redes+y+Cableado';" 
+                                 alt="Infraestructura de servidores" 
+                                 class="rounded-2xl object-cover w-full h-48 border border-slate-100">
+                        </div>
+
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            El <strong>Técnico General en Computación</strong> responde a la creciente necesidad de profesionales capacitados en mantenimiento de hardware, administración de redes LAN, ofimática avanzada y soporte técnico integral en las empresas públicas y privadas de Nicaragua.
+                        </p>
+
+                        <!-- Key Pillars Solid Box -->
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 my-5">
+                            <h4 class="text-xs font-black uppercase tracking-wider text-slate-900 mb-3 flex items-center">
+                                <i class="fa-solid fa-gem text-inatec-blue mr-2"></i> Pilares Fundamentales del Programa
+                            </h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                                <div class="bg-white p-3 rounded-xl border border-slate-200">
+                                    <span class="font-bold text-slate-900 block mb-1 text-inatec-blue"><i class="fa-solid fa-wrench mr-1"></i> 70% Práctica</span>
+                                    <p class="text-[11px] text-slate-500">Ejercicios reales de ensamble, cableado y configuración desde el primer semestre.</p>
+                                </div>
+                                <div class="bg-white p-3 rounded-xl border border-slate-200">
+                                    <span class="font-bold text-slate-900 block mb-1 text-natural-teal"><i class="fa-solid fa-graduation-cap mr-1"></i> Título Nacional</span>
+                                    <p class="text-[11px] text-slate-500">Acreditación respaldada oficialmente por el Tecnológico Nacional (INATEC).</p>
+                                </div>
+                                <div class="bg-white p-3 rounded-xl border border-slate-200">
+                                    <span class="font-bold text-slate-900 block mb-1 text-slate-800"><i class="fa-solid fa-hand-holding-dollar mr-1"></i> Costo Zero</span>
+                                    <p class="text-[11px] text-slate-500">Educación pública subvencionada sin cobro de mensualidades ni matrícula.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between text-xs pt-4 border-t border-slate-100">
+                            <span class="text-slate-400"><i class="fa-solid fa-tag mr-1 text-slate-500"></i> Categoría: Educación Técnica Gratuita</span>
+                            <a href="#modulos-formativos" class="font-bold text-inatec-blue hover:text-slate-900">Explorar Plan de Estudios →</a>
+                        </div>
+                    </article>
+
+                    <!-- EDITORIAL SECTION 2: MÓDULOS FORMATIVOS EN DETALLE -->
+                    <section id="modulos-formativos" class="portal-article-item space-y-6" data-category="pensum">
+                        <div class="bg-inatec-blue text-white rounded-3xl p-6 sm:p-8 shadow-md relative overflow-hidden">
+                            <div class="relative z-10">
+                                <span class="bg-white/20 text-white text-[10px] font-extrabold uppercase px-3 py-1 rounded-full tracking-wider inline-block mb-2">
+                                    Plan Oficial de Estudios
+                                </span>
+                                <h2 class="text-2xl sm:text-3xl font-extrabold font-serif mb-2">
+                                    7 Módulos Técnicos Especializados + Módulos Transversales
+                                </h2>
+                                <p class="text-slate-100 text-xs sm:text-sm max-w-2xl">
+                                    Aprende paso a paso con nuestros docentes altamente calificados. Haz clic en cada módulo para leer los detalles del aprendizaje.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Grid of Interactive Module Cards -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            
+                            <!-- Module 1 -->
+                            <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:border-bubblegum-300 transition-all portal-card">
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="w-10 h-10 rounded-xl bg-bubblegum-100 text-bubblegum-600 flex items-center justify-center font-bold text-lg">
+                                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                                    </div>
+                                    <span class="text-[10px] font-black uppercase px-2.5 py-1 rounded-full bg-bubblegum-50 text-bubblegum-700 border border-bubblegum-200">
+                                        135 Horas
+                                    </span>
+                                </div>
+                                <h3 class="text-sm font-bold text-slate-900 mb-1 font-serif">Reparación y Mantenimiento de Equipos</h3>
+                                <p class="text-slate-500 text-xs mb-3 leading-relaxed">
+                                    Diagnóstico de fallas en motherboard, fuente de poder, memoria RAM y discos duros. Mantenimiento preventivo y correctivo.
+                                </p>
+                                <span class="text-[11px] font-bold text-bubblegum-700 bg-bubblegum-50 px-2 py-0.5 rounded border border-bubblegum-200">
+                                    <i class="fa-solid fa-check mr-1"></i> Ensamble físico de computadoras
+                                </span>
+                            </div>
+
+                            <!-- Module 2 -->
+                            <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:border-bubblegum-300 transition-all portal-card">
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="w-10 h-10 rounded-xl bg-natural-teallight text-natural-teal flex items-center justify-center font-bold text-lg">
+                                        <i class="fa-solid fa-laptop-code"></i>
+                                    </div>
+                                    <span class="text-[10px] font-black uppercase px-2.5 py-1 rounded-full bg-natural-teallight text-natural-teal border border-natural-teal/30">
+                                        100 Horas
+                                    </span>
+                                </div>
+                                <h3 class="text-sm font-bold text-slate-900 mb-1 font-serif">Tecnologías Digitales para el Aprendizaje, el Trabajo y la Vida</h3>
+                                <p class="text-slate-500 text-xs mb-3 leading-relaxed">
+                                    Apropiación del entorno digital, entornos virtuales de aprendizaje, herramientas colaborativas, ofimática moderna y uso responsable de las TIC.
+                                </p>
+                                <span class="text-[11px] font-bold text-natural-teal bg-natural-teallight px-2 py-0.5 rounded border border-natural-teal/20">
+                                    <i class="fa-solid fa-check mr-1"></i> Competencias digitales e inclusión tecnológica
+                                </span>
+                            </div>
+
+                            <!-- Module 3 -->
+                            <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:border-bubblegum-300 transition-all portal-card">
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-lg">
+                                        <i class="fa-solid fa-diagram-project"></i>
+                                    </div>
+                                    <span class="text-[10px] font-black uppercase px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
+                                        60 Horas
+                                    </span>
+                                </div>
+                                <h3 class="text-sm font-bold text-slate-900 mb-1 font-serif">Cableado Estructurado</h3>
+                                <p class="text-slate-500 text-xs mb-3 leading-relaxed">
+                                    Diseño e instalación de infraestructura física bajo estándar ANSI/TIA/EIA. Ponchado UTP, Patch Panels y Racks.
+                                </p>
+                                <span class="text-[11px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+                                    <i class="fa-solid fa-check mr-1"></i> Certificación de puntos de red
+                                </span>
+                            </div>
+
+                            <!-- Module 4 -->
+                            <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:border-bubblegum-300 transition-all portal-card">
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center font-bold text-lg">
+                                        <i class="fa-solid fa-wifi"></i>
+                                    </div>
+                                    <span class="text-[10px] font-black uppercase px-2.5 py-1 rounded-full bg-sky-50 text-sky-700 border border-sky-200">
+                                        72 Horas
+                                    </span>
+                                </div>
+                                <h3 class="text-sm font-bold text-slate-900 mb-1 font-serif">Infraestructura de Red</h3>
+                                <p class="text-slate-500 text-xs mb-3 leading-relaxed">
+                                    Configuración de Switches, Routers inalámbricos, Access Points (AP) y redes Wi-Fi de alta cobertura.
+                                </p>
+                                <span class="text-[11px] font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded border border-sky-200">
+                                    <i class="fa-solid fa-check mr-1"></i> Redes inalámbricas seguras
+                                </span>
+                            </div>
+
+                            <!-- Module 5 -->
+                            <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:border-bubblegum-300 transition-all portal-card">
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center font-bold text-lg">
+                                        <i class="fa-solid fa-server"></i>
+                                    </div>
+                                    <span class="text-[10px] font-black uppercase px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-200">
+                                        108 Horas
+                                    </span>
+                                </div>
+                                <h3 class="text-sm font-bold text-slate-900 mb-1 font-serif">Servicios de Red y Servidores</h3>
+                                <p class="text-slate-500 text-xs mb-3 leading-relaxed">
+                                    Montaje de servidores DHCP, DNS, archivos e impresiones. Administración de usuarios y copias de seguridad.
+                                </p>
+                                <span class="text-[11px] font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">
+                                    <i class="fa-solid fa-check mr-1"></i> Gestión de servidores reales
+                                </span>
+                            </div>
+
+                            <!-- Module 6 & 7 combined card -->
+                            <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:border-bubblegum-300 transition-all portal-card">
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold text-lg">
+                                        <i class="fa-solid fa-globe"></i>
+                                    </div>
+                                    <span class="text-[10px] font-black uppercase px-2.5 py-1 rounded-full bg-purple-50 text-purple-700 border border-purple-200">
+                                        60 Horas
+                                    </span>
+                                </div>
+                                <h3 class="text-sm font-bold text-slate-900 mb-1 font-serif">Servicios LAN e Internet en la Nube</h3>
+                                <p class="text-slate-500 text-xs mb-3 leading-relaxed">
+                                    Protocolos TCP/IP, direccionamiento IPv4, almacenamiento en la nube y herramientas colaborativas empresariales.
+                                </p>
+                                <span class="text-[11px] font-bold text-purple-700 bg-purple-50 px-2 py-0.5 rounded border border-purple-200">
+                                    <i class="fa-solid fa-check mr-1"></i> Trabajo colaborativo Cloud
+                                </span>
+                            </div>
+
+                            <!-- Module 7: Internet y Correo Electrónico -->
+                            <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:border-bubblegum-300 transition-all portal-card">
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-lg">
+                                        <i class="fa-solid fa-envelope-open-text"></i>
+                                    </div>
+                                    <span class="text-[10px] font-black uppercase px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                        30 Horas
+                                    </span>
+                                </div>
+                                <h3 class="text-sm font-bold text-slate-900 mb-1 font-serif">Internet y Correo Electrónico</h3>
+                                <p class="text-slate-500 text-xs mb-3 leading-relaxed">
+                                    Uso de navegadores, motores de búsqueda avanzada, gestión profesional de cuentas de correo (Gmail/Outlook) y utilidades de almacenamiento Cloud.
+                                </p>
+                                <span class="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                                    <i class="fa-solid fa-check mr-1"></i> Comunicación digital y servicios Cloud
+                                </span>
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <!-- EDITORIAL ARTICLE 3: DUAL PERSPECTIVE (PADRES Y JÓVENES) -->
+                    <article id="enfoque-familiar" class="portal-article-item bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm portal-card" data-category="orientacion">
+                        <div class="flex items-center space-x-2 text-xs text-inatec-blue font-bold uppercase tracking-wider mb-2">
+                            <i class="fa-solid fa-users mr-1"></i> Reportaje Especial • Orientación Familiar
+                        </div>
+
+                        <h2 class="text-2xl font-bold font-serif text-slate-900 mb-3">
+                            Padres y Jóvenes: Una decisión respaldada por tranquilidad y pasión tecnológica
+                        </h2>
+                        
+                        <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-6">
+                            Estudiar una carrera técnica en el INATEC satisface tanto la seguridad financiera que buscan los padres como el entusiasmo por la tecnología de las nuevas generaciones.
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            
+                            <!-- Perspective 1: Parents -->
+                            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200">
+                                <div class="flex items-center space-x-3 mb-3">
+                                    <div class="w-10 h-10 rounded-xl bg-inatec-blue text-white flex items-center justify-center font-bold text-lg">
+                                        <i class="fa-solid fa-shield-heart"></i>
+                                    </div>
+                                    <div>
+                                        <span class="text-[10px] font-black text-inatec-blue uppercase">Beneficios Claros</span>
+                                        <h3 class="text-sm font-bold text-slate-900">Para Padres de Familia</h3>
+                                    </div>
+                                </div>
+                                <ul class="space-y-2 text-xs text-slate-600">
+                                    <li class="flex items-start"><i class="fa-solid fa-circle-check text-natural-teal mr-2 mt-0.5"></i> <span><strong>Cero Deudas:</strong> Educación 100% gratuita financiada por el Gobierno.</span></li>
+                                    <li class="flex items-start"><i class="fa-solid fa-circle-check text-natural-teal mr-2 mt-0.5"></i> <span><strong>Rápida Inserción:</strong> Graduación oficial en tan solo 1 año de estudio.</span></li>
+                                    <li class="flex items-start"><i class="fa-solid fa-circle-check text-natural-teal mr-2 mt-0.5"></i> <span><strong>Entorno Seguro:</strong> Aulas y laboratorios protegidos en el centro de León.</span></li>
+                                </ul>
+                            </div>
+
+                            <!-- Perspective 2: Youth -->
+                            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200">
+                                <div class="flex items-center space-x-3 mb-3">
+                                    <div class="w-10 h-10 rounded-xl bg-natural-teal text-white flex items-center justify-center font-bold text-lg">
+                                        <i class="fa-solid fa-laptop-code"></i>
+                                    </div>
+                                    <div>
+                                        <span class="text-[10px] font-black text-natural-teal uppercase">Experiencia Real</span>
+                                        <h3 class="text-sm font-bold text-slate-900">Para Jóvenes Tecnológicos</h3>
+                                    </div>
+                                </div>
+                                <ul class="space-y-2 text-xs text-slate-600">
+                                    <li class="flex items-start"><i class="fa-solid fa-circle-check text-inatec-blue mr-2 mt-0.5"></i> <span><strong>Práctica Pura:</strong> Desarma computadoras, arma servidores y redes Wi-Fi.</span></li>
+                                    <li class="flex items-start"><i class="fa-solid fa-circle-check text-inatec-blue mr-2 mt-0.5"></i> <span><strong>Ingresos Propios:</strong> Ofrece soporte técnico a clientes desde que estudias.</span></li>
+                                    <li class="flex items-start"><i class="fa-solid fa-circle-check text-inatec-blue mr-2 mt-0.5"></i> <span><strong>Pasarela Universitaria:</strong> Base sólida si deseas seguir Ingeniería en Sistemas.</span></li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </article>
+
+                    <!-- EDITORIAL ARTICLE 4: CAMPO LABORAL EN LEÓN -->
+                    <article id="salida-laboral" class="portal-article-item bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm portal-card" data-category="empleo">
+                        <div class="flex items-center space-x-2 text-xs text-natural-teal font-bold uppercase tracking-wider mb-2">
+                            <i class="fa-solid fa-briefcase mr-1"></i> Mercado Laboral • León, Nicaragua
+                        </div>
+
+                        <h2 class="text-2xl font-bold font-serif text-slate-900 mb-4">
+                            Salidas Profesionales: ¿Dónde podrás trabajar al graduarte?
+                        </h2>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+                            
+                            <div class="bg-natural-vanilla p-4 rounded-2xl border border-slate-200 text-center">
+                                <div class="w-12 h-12 rounded-2xl bg-slate-100 text-slate-800 mx-auto flex items-center justify-center text-xl font-bold mb-2">
+                                    <i class="fa-solid fa-headset"></i>
+                                </div>
+                                <h3 class="text-xs font-bold text-slate-900 mb-1">Soporte Informático</h3>
+                                <p class="text-[11px] text-slate-500">Bancos, colegios, hospitales y comercios de la ciudad.</p>
+                            </div>
+
+                            <div class="bg-natural-vanilla p-4 rounded-2xl border border-slate-200 text-center">
+                                <div class="w-12 h-12 rounded-2xl bg-natural-teallight text-natural-teal mx-auto flex items-center justify-center text-xl font-bold mb-2">
+                                    <i class="fa-solid fa-network-wired"></i>
+                                </div>
+                                <h3 class="text-xs font-bold text-slate-900 mb-1">Instalador de Redes</h3>
+                                <p class="text-[11px] text-slate-500">Empresas de telecomunicaciones y contratistas de redes.</p>
+                            </div>
+
+                            <div class="bg-natural-vanilla p-4 rounded-2xl border border-slate-200 text-center">
+                                <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-700 mx-auto flex items-center justify-center text-xl font-bold mb-2">
+                                    <i class="fa-solid fa-store"></i>
+                                </div>
+                                <h3 class="text-xs font-bold text-slate-900 mb-1">Taller Propio</h3>
+                                <p class="text-[11px] text-slate-500">Emprendimiento personal en reparación de PC y laptops.</p>
+                            </div>
+
+                        </div>
+                    </article>
+
+                    <!-- EDITORIAL ARTICLE 5: TEST VOCACIONAL INTERACTIVO -->
+                    <article id="test-vocacional" class="portal-article-item bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-inatec-blue text-white flex items-center justify-center text-lg font-bold">
+                                <i class="fa-solid fa-clipboard-check"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] font-black uppercase text-inatec-blue tracking-wider">Auto-Evaluación Digital</span>
+                                <h3 class="text-lg font-bold text-slate-900 font-serif">Test Vocacional Express de Compatibilidad</h3>
+                            </div>
+                        </div>
+
+                        <p class="text-xs text-slate-600 mb-4">Responde estas 3 breves preguntas para verificar si el perfil técnico encaja con tus gustos:</p>
+
+                        <form id="portalQuizForm" class="space-y-3 text-xs">
+                            <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-200">
+                                <label class="font-bold text-slate-800 block mb-2">1. ¿Sueles ser curioso/a sobre cómo funcionan los aparatos electrónicos por dentro?</label>
+                                <div class="space-y-1 text-slate-600">
+                                    <label class="flex items-center space-x-2"><input type="radio" name="pq1" value="2" class="accent-inatec-blue"> <span>¡Sí, me llama mucho la atención desarmar y explorar!</span></label>
+                                    <label class="flex items-center space-x-2"><input type="radio" name="pq1" value="1" class="accent-inatec-blue"> <span>Un poco, dependiendo del aparato.</span></label>
+                                </div>
+                            </div>
+
+                            <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-200">
+                                <label class="font-bold text-slate-800 block mb-2">2. ¿Te llama la atención solucionar problemas de conexión a Internet y Wi-Fi?</label>
+                                <div class="space-y-1 text-slate-600">
+                                    <label class="flex items-center space-x-2"><input type="radio" name="pq2" value="2" class="accent-inatec-blue"> <span>Sí, prefiero el trabajo práctico y dinámico.</span></label>
+                                    <label class="flex items-center space-x-2"><input type="radio" name="pq2" value="1" class="accent-inatec-blue"> <span>Me gustaría aprender a hacerlo.</span></label>
+                                </div>
+                            </div>
+
+                            <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-200">
+                                <label class="font-bold text-slate-800 block mb-2">3. ¿Te gustaría graduarte con título técnico certificado en solo 1 año?</label>
+                                <div class="space-y-1 text-slate-600">
+                                    <label class="flex items-center space-x-2"><input type="radio" name="pq3" value="2" class="accent-inatec-blue"> <span>¡Definitivamente! Busco incorporarme pronto al trabajo.</span></label>
+                                    <label class="flex items-center space-x-2"><input type="radio" name="pq3" value="1" class="accent-inatec-blue"> <span>Es una buena alternativa.</span></label>
+                                </div>
+                            </div>
+
+                            <button type="button" onclick="evaluatePortalQuiz()" class="w-full py-3 rounded-xl bg-inatec-blue hover:bg-slate-900 text-white font-bold text-xs uppercase tracking-wider shadow-sm transition-all">
+                                <i class="fa-solid fa-wand-magic-sparkles mr-2"></i> Evaluar Mi Perfil Vocacional
+                            </button>
+                        </form>
+
+                        <div id="portalQuizResult" class="hidden mt-4 p-4 rounded-2xl text-xs font-medium"></div>
+                    </article>
+
+                    <!-- EDITORIAL GALLERY SECTION -->
+                    <section id="instalaciones" class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <span class="text-[10px] font-black uppercase text-natural-teal bg-natural-teallight px-2.5 py-0.5 rounded-full">Fotorreportaje del Centro</span>
+                                <h3 class="text-lg font-bold font-serif text-slate-900 mt-1">Nuestros Ambientes Tecnológicos en León</h3>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div class="relative rounded-2xl overflow-hidden h-40 group">
+                                <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80" 
+                                     onerror="this.onerror=null; this.src='https://placehold.co/600x400/00529B/ffffff?text=Laboratorio+C%C3%B3mputo';" 
+                                     alt="Laboratorio informático INATEC" 
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                                <div class="absolute inset-0 bg-slate-900/40"></div>
+                                <span class="absolute bottom-2 left-2 text-[10px] text-white font-bold bg-slate-900/80 px-2 py-0.5 rounded">Laboratorio Principal</span>
+                            </div>
+                            <div class="relative rounded-2xl overflow-hidden h-40 group">
+                                <img src="https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?auto=format&fit=crop&w=800&q=80" 
+                                     onerror="this.onerror=null; this.src='https://placehold.co/600x400/ec4899/ffffff?text=Taller+Hardware';" 
+                                     alt="Taller de hardware" 
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                                <div class="absolute inset-0 bg-slate-900/40"></div>
+                                <span class="absolute bottom-2 left-2 text-[10px] text-white font-bold bg-slate-900/80 px-2 py-0.5 rounded">Taller de Hardware</span>
+                            </div>
+                        </div>
+                    </section>
+
+                </main>
+
+                <!-- RIGHT COLUMN: PORTAL SIDEBAR WIDGETS (4 COLS) -->
+                <aside class="lg:col-span-4 space-y-6">
+                    
+                    <!-- SIDEBAR WIDGET 1: FICHA DE ADMISIÓN OFICIAL (Position sticky removed) -->
+                    <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
+                        <div class="flex items-center space-x-2 pb-3 border-b border-slate-100 mb-4">
+                            <i class="fa-solid fa-id-card text-inatec-blue text-base"></i>
+                            <h3 class="text-xs font-black uppercase tracking-wider text-slate-900">Ficha de Admisión Directa</h3>
+                        </div>
+
+                        <div class="space-y-3 text-xs">
+                            <div class="flex justify-between py-1.5 border-b border-slate-100">
+                                <span class="text-slate-500">Nivel Mínimo:</span>
+                                <strong class="text-slate-900">3er Año (9no Grado)</strong>
+                            </div>
+                            <div class="flex justify-between py-1.5 border-b border-slate-100">
+                                <span class="text-slate-500">Costo de Matrícula:</span>
+                                <strong class="text-natural-teal font-extrabold">C$ 0.00 (Gratuito)</strong>
+                            </div>
+                            <div class="flex justify-between py-1.5 border-b border-slate-100">
+                                <span class="text-slate-500">Título Obtenido:</span>
+                                <strong class="text-inatec-blue">Técnico General</strong>
+                            </div>
+                            <div class="flex justify-between items-start py-1.5 border-b border-slate-100 gap-2">
+                                <span class="text-slate-500 shrink-0">Sede Institucional:</span>
+                                <strong class="text-slate-900 text-right">Centro Tecnológico Juan de Dios Muñoz Reyes, Leon-Nicaragua</strong>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 pt-3 bg-slate-50 p-3 rounded-2xl border border-slate-200">
+                            <span class="text-[10px] font-bold text-slate-800 block mb-1">DOCUMENTOS A PRESENTAR:</span>
+                            <ul class="text-[11px] text-slate-600 space-y-1">
+                                <li><i class="fa-solid fa-check text-inatec-blue mr-1"></i> Copia de Cédula o Partida de Nacimiento</li>
+                                <li><i class="fa-solid fa-check text-inatec-blue mr-1"></i> Diploma de 3er Año o Bachiller</li>
+                                <li><i class="fa-solid fa-check text-inatec-blue mr-1"></i> 2 Fotos tamaño carnet</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- SIDEBAR WIDGET 2: MODALIDADES Y HORARIOS -->
+                    <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
+                        <h3 class="text-xs font-black uppercase tracking-wider text-natural-teal mb-3 flex items-center">
+                            <i class="fa-solid fa-calendar-days mr-2"></i> Modalidades de Estudio
+                        </h3>
+
+                        <div class="space-y-2.5 text-xs">
+                            <div class="p-2.5 bg-slate-50 rounded-xl border border-slate-200">
+                                <strong class="text-slate-900 block font-bold">Turno Matutino</strong>
+                                <span class="text-slate-500 text-[11px]">Lunes a Viernes • Duración: 1 Año</span>
+                            </div>
+                            <div class="p-2.5 bg-slate-50 rounded-xl border border-slate-200">
+                                <strong class="text-slate-900 block font-bold">Turno Vespertino</strong>
+                                <span class="text-slate-500 text-[11px]">Lunes a Viernes • Duración: 1 Año</span>
+                            </div>
+                            <div class="p-2.5 bg-slate-50 rounded-xl border border-slate-200">
+                                <strong class="text-slate-900 block font-bold">Turno Sabatino / Dominical</strong>
+                                <span class="text-slate-500 text-[11px]">Fines de Semana • Duración: 2 Años</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SIDEBAR WIDGET 3: UBICACIÓN Y CONTACTO DIRECTO -->
+                    <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
+                        <h3 class="text-xs font-black uppercase tracking-wider text-slate-900 mb-3 flex items-center">
+                            <i class="fa-solid fa-location-dot text-rose-500 mr-2"></i> Centro Tecnológico León
+                        </h3>
+
+                        <p class="text-xs text-slate-600 mb-3">
+                            <strong>Dirección:</strong> Primera calle del Barrio Utrecht, León, Nicaragua.
+                        </p>
+
+                        <div class="bg-slate-50 p-3 rounded-2xl border border-slate-200 text-xs space-y-2 mb-3">
+                            <p class="flex items-center text-slate-700">
+                                <i class="fa-solid fa-phone text-natural-teal mr-2"></i>
+                                <span>+505 2253-8830 ext: 2001</span>
+                            </p>
+                            <p class="flex items-center text-slate-700">
+                                <i class="fa-solid fa-globe text-inatec-blue mr-2"></i>
+                                <a href="https://www.tecnacional.edu.ni" target="_blank" rel="noopener" class="text-inatec-blue font-bold hover:underline">tecnacional.edu.ni</a>
+                            </p>
+                        </div>
+                    </div>
+
+                </aside>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTAL FOOTER -->
+    <footer class="bg-white border-t border-slate-200 py-10 text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                
+                <div class="flex items-center space-x-3">
+                    <img src="https://www.tecnacional.edu.ni/static/img/logo-inatec.png" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/120x60/00529B/ffffff?text=INATEC';" 
+                         alt="INATEC Nicaragua" 
+                         class="h-10 w-auto">
+                    <div>
+                        <p class="font-bold text-slate-900">Tecnológico Nacional (INATEC)</p>
+                        <p class="text-[11px] text-slate-400">Centro Tecnológico Juan de Dios Muñoz Reyes — León, Nicaragua</p>
+                    </div>
+                </div>
+
+                <div class="flex space-x-3">
+                    <a href="https://www.facebook.com/CTJuandeDiosMunozReyes" target="_blank" rel="noopener" class="w-9 h-9 rounded-full bg-slate-100 text-slate-700 hover:bg-inatec-blue hover:text-white flex items-center justify-center transition-colors">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="https://www.instagram.com/centrotec_jdmr?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" class="w-9 h-9 rounded-full bg-slate-100 text-slate-700 hover:bg-inatec-blue hover:text-white flex items-center justify-center transition-colors">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://www.youtube.com/user/TecnologicoNacional" target="_blank" rel="noopener" class="w-9 h-9 rounded-full bg-slate-100 text-slate-700 hover:bg-inatec-blue hover:text-white flex items-center justify-center transition-colors">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-slate-100 text-center text-[11px] text-slate-400">
+                <p>© Educación Técnica Gratuita y de Calidad • Gobierno de Reconciliación y Unidad Nacional • Nicaragua</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
+    <script>
+        const mobileToggle = document.getElementById('mobileMenuToggle');
+        const mobileDrawer = document.getElementById('mobileDrawer');
+
+        if(mobileToggle && mobileDrawer) {
+            mobileToggle.addEventListener('click', () => {
+                mobileDrawer.classList.toggle('hidden');
+            });
+        }
+
+        function filterPortalArticles(cat) {
+            const articles = document.querySelectorAll('.portal-article-item');
+            const btns = document.querySelectorAll('.portal-cat-btn');
+
+            btns.forEach(btn => {
+                if(btn.getAttribute('data-cat') === cat) {
+                    btn.className = "portal-cat-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-slate-900 text-white shadow-sm transition-all";
+                } else {
+                    btn.className = "portal-cat-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-white text-slate-600 hover:bg-slate-100 hover:text-slate-900 border border-slate-200 transition-all";
+                }
+            });
+
+            articles.forEach(art => {
+                const category = art.getAttribute('data-category');
+                if(cat === 'all' || category === cat) {
+                    art.style.display = 'block';
+                } else {
+                    art.style.display = 'none';
+                }
+            });
+        }
+
+        function handlePortalSearch() {
+            const searchInput = document.getElementById('portalSearchInput');
+            if(!searchInput) return;
+            const query = searchInput.value.toLowerCase();
+            const cards = document.querySelectorAll('.portal-article-item');
+
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                if(text.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function evaluatePortalQuiz() {
+            const q1 = document.querySelector('input[name="pq1"]:checked');
+            const q2 = document.querySelector('input[name="pq2"]:checked');
+            const q3 = document.querySelector('input[name="pq3"]:checked');
+            const resultBox = document.getElementById('portalQuizResult');
+
+            if(!q1 || !q2 || !q3) {
+                resultBox.className = "mt-4 p-3 rounded-2xl bg-amber-50 text-amber-800 border border-amber-200 text-xs font-bold";
+                resultBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-1"></i> Por favor selecciona una opción en cada una de las 3 preguntas.';
+                resultBox.classList.remove('hidden');
+                return;
+            }
+
+            const total = parseInt(q1.value) + parseInt(q2.value) + parseInt(q3.value);
+            resultBox.classList.remove('hidden');
+
+            if(total >= 4) {
+                resultBox.className = "mt-4 p-4 rounded-2xl bg-natural-mintlight text-natural-teal border border-natural-teal/30 text-xs";
+                resultBox.innerHTML = `
+                    <h4 class="font-bold text-sm mb-1"><i class="fa-solid fa-circle-check mr-1.5"></i> ¡Alta Compatibilidad Vocacional!</h4>
+                    <p>Posees una marcada afinidad técnica y práctica. La carrera de <strong>Técnico General en Computación</strong> en el Centro Juan de Dios Muñoz Reyes es una excelente opción para desarrollar tu potencial.</p>
+                `;
+            } else {
+                resultBox.className = "mt-4 p-4 rounded-2xl bg-slate-50 text-slate-800 border border-slate-200 text-xs";
+                resultBox.innerHTML = `
+                    <h4 class="font-bold text-sm mb-1"><i class="fa-solid fa-circle-info mr-1.5"></i> ¡Interés Exploratorio!</h4>
+                    <p>La computación es una herramienta transversal en todas las profesiones actuales. Te invitamos a conocer más sobre las clases prácticas.</p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
